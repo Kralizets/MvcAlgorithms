@@ -1,0 +1,11 @@
+﻿<div id="inputStringForAlgorithmHorspool">
+    @using (Html.BeginForm("HorspoolResult", "Algorithms", FormMethod.Post))
+    {
+        <input type="hidden" />
+        <p>Input main string: </p>
+        @Html.TextBox("InputString", "")
+        <p>Input search string: </p>
+        @Html.TextBox("SearchString", "")
+        <p><input id="buttonForGetResultInputAlgorithmHorspool" type="submit" value="Get result" /></p>
+    }
+</div>

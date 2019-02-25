@@ -1,0 +1,18 @@
+﻿@using Presentation.Models
+
+@model HorspoolViewModel
+
+<div>
+    <div>
+        <span class="algorithms-horspool-text-result">Input string: </span><span>@Model.InputString</span>
+    </div>
+    <div>
+        <span class="algorithms-horspool-text-result">Search string: </span><span>@Model.SearchString</span>
+    </div>
+    @if (Model.IsFound)
+    {
+        <div>
+            <span class="algorithms-horspool-text-result">Number of line: </span><span>@Model.NumberOfLine</span>
+        </div>
+    }
+</div>

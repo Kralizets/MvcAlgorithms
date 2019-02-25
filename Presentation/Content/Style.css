@@ -1,0 +1,32 @@
+﻿.algorithms-main {
+
+}
+
+.algorithms-h1-main {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.algorithms-list {
+    list-style-type: none;
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
+.algorithms-list-button {
+    display: block;
+    width: 250px;
+    background: #4E9CAF;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    border: double;
+}
+
+.algorithms-horspool-text-result {
+    font-size: 16px;
+    font-style: italic;
+    color: dimgray;
+}
