@@ -49,7 +49,7 @@ namespace AlgorithmsProvider.Provider.Implementation
                     {
                         InputString = currentString,
                         SearchString = searchString,
-                        NumberOfLine = currentPosition + 1,
+                        NumberOfLine = currentPosition + 2,
                         IsFound = true
                     };
                 }
