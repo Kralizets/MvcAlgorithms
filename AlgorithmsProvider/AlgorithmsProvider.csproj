@@ -75,16 +75,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Angle.cs" />
+    <Compile Include="Models\GeneralEquationForStraightLine.cs" />
     <Compile Include="Models\HorspoolModel.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Models\MinAreaRectangleModel.cs" />
+    <Compile Include="Models\Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\Implementation\HorspoolProvider.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Provider\Implementation\MinAreaRectangleProvider.cs" />
     <Compile Include="Provider\Interface\IHorspoolProvider.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Provider\Interface\IMinAreaRectangleProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
