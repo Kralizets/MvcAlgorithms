@@ -19,11 +19,16 @@ namespace AlgorithmsProvider.Provider.Implementation
 
             double currentArea = 0.0;
             double minArea = 0.0;
-            
+
+            Dictionary<int, Point[]> wrongPoints = new Dictionary<int, Point[]>();
+            Dictionary<int, Angle> allAngles = new Dictionary<int, Angle>();
+            Dictionary<int, double> allArea = new Dictionary<int, double>();
+
             for (int firstPoint = 0; firstPoint < sortedPoints.Length - 1; firstPoint++)
             {
                 for (int secondPoint = firstPoint + 1; secondPoint < sortedPoints.Length; secondPoint++)
                 {
+                    int currentNumber = secondPoint + firstPoint * (sortedPoints.Length - 1);
                     Point[] twoPoints = new Point[]
                     {
                         new Point
@@ -40,6 +45,7 @@ namespace AlgorithmsProvider.Provider.Implementation
 
                     Angle angleBetweenTwoStraightLine = GetAngleBetweenTwoStraightLine(twoPoints);
                     Point[] newSortedPoints = GetAllNewCoordinatesPointsAfterTurningAxes(sortedPoints, angleBetweenTwoStraightLine);
+                    allAngles.Add(currentNumber, angleBetweenTwoStraightLine);
 
                     Point[] newTwoPoints = new Point[]
                     {
@@ -55,16 +61,29 @@ namespace AlgorithmsProvider.Provider.Implementation
                         }
                     };
 
-                    if (GetSideOfRectangel(twoPoints) == 0)
+                    if (GetSideOfRectangel(newTwoPoints) == 0)
                     {
-                        //Add info about 'wrong points'
+                        wrongPoints.Add(currentNumber, newTwoPoints);
                     }
 
+                    Point[] extraPoints = GetExtraPoints(newSortedPoints);
 
+                    if (currentNumber == 1)
+                    {
+                        minArea = GetAreaRectangle(extraPoints);
+                    }
+
+                    currentArea = GetAreaRectangle(extraPoints);
+                    allArea.Add(currentNumber, currentArea);
+
+                    if (currentArea < minArea)
+                    {
+                        minArea = currentArea;
+                    }
                 }
             }
 
-            return 0;
+            return minArea;
         }
 
         private Point[] GetSortedPoints(List<Point> points)
@@ -75,16 +94,6 @@ namespace AlgorithmsProvider.Provider.Implementation
         private double GetAreaLessThreePoints(Point[] points)
         {
             return points.Length == 1 ? 0 : GetLengthBetweenTwoPoints(points);
-        }
-
-        //|X1 X2| = sqrt((x2 - x1)^2 + (y2 - y1)^2)
-        //More information: https://en.wikipedia.org/wiki/Euclidean_distance
-        private double GetLengthBetweenTwoPoints(Point[] points)
-        {
-            return Math.Pow((
-                (points[1].X - points[0].X) * (points[1].X - points[0].X) + 
-                (points[1].Y - points[0].Y) * (points[1].Y - points[0].Y)), 
-                (1.0 / 2.0));
         }
 
         //Angles are used to get new coordinates after turning axes.
@@ -201,6 +210,90 @@ namespace AlgorithmsProvider.Provider.Implementation
             return Math.Abs(twoPoints[0].X - twoPoints[1].X) < delta ? 1
                 : (Math.Abs(twoPoints[0].Y - twoPoints[1].Y) < delta ? 2
                 : 0);
+        }
+
+        //Get 4 extreme points for finding the area of a rectangle.
+        //Pairs of points [[Xmin, Ymin]; [Xmin, Ymax]] and [[Xmin, Ymax], [Xmax, Ymax]].
+        //Delta - a variant of the approximation of the area. Allows you to accurately hit all points in the polygon.
+        private Point[] GetExtraPoints(Point[] newPoints)
+        {
+            List<Point> extraPoints = new List<Point>();
+            double delta = 0.00002;
+
+            extraPoints.Add(newPoints.OrderBy(point => point.X).ToArray().FirstOrDefault());          
+            extraPoints.Add(newPoints.OrderBy(point => point.Y).ToArray().FirstOrDefault());          
+            extraPoints.Add(newPoints.OrderByDescending(point => point.X).ToArray().FirstOrDefault());
+            extraPoints.Add(newPoints.OrderByDescending(point => point.Y).ToArray().FirstOrDefault());
+
+            return new Point[]
+            {
+                new Point
+                {
+                    X = extraPoints[0].X - delta,
+                    Y = extraPoints[1].Y - delta
+                },
+                new Point
+                {
+                    X = extraPoints[0].X - delta,
+                    Y = extraPoints[3].Y + delta
+                },
+                new Point
+                {
+                    X = extraPoints[0].X - delta,
+                    Y = extraPoints[3].Y + delta
+                },
+                new Point
+                {
+                    X = extraPoints[2].X + delta,
+                    Y = extraPoints[3].Y + delta
+                },
+            };
+        }
+
+        //The method for obtaining the area of a rectangle by 4 points.
+        //S = LineByTwoPoints(A[[x1, y1]; [x2, y2]]) * LineByTwoPoints(B[x3, y3]; [x4, y4]]).
+        //More information: https://en.wikipedia.org/wiki/Rectangle
+        private double GetAreaRectangle(Point[] extraPoints)
+        {
+            double A = GetLengthBetweenTwoPoints(new Point[]
+            {
+                new Point
+                {
+                    X = extraPoints[0].X,
+                    Y = extraPoints[0].Y
+                },
+                new Point
+                {
+                    X = extraPoints[1].X,
+                    Y = extraPoints[1].Y
+                }
+            });
+
+            double B = GetLengthBetweenTwoPoints(new Point[]
+            {
+                new Point
+                {
+                    X = extraPoints[2].X,
+                    Y = extraPoints[2].Y
+                },
+                new Point
+                {
+                    X = extraPoints[3].X,
+                    Y = extraPoints[3].Y
+                }
+            });
+
+            return A * B;
+        }
+
+        //|X1 X2| = sqrt((x2 - x1)^2 + (y2 - y1)^2)
+        //More information: https://en.wikipedia.org/wiki/Euclidean_distance
+        private double GetLengthBetweenTwoPoints(Point[] points)
+        {
+            return Math.Pow((
+                (points[1].X - points[0].X) * (points[1].X - points[0].X) +
+                (points[1].Y - points[0].Y) * (points[1].Y - points[0].Y)),
+                (1.0 / 2.0));
         }
     }
 }
