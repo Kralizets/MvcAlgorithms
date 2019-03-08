@@ -6,21 +6,27 @@ using System.Linq;
 
 namespace AlgorithmsProvider.Provider.Implementation
 {
-    class MinAreaRectangleProvider : IMinAreaRectangleProvider
+    public class MinAreaRectangleProvider : IMinAreaRectangleProvider
     {
-        public double GetMinAreaRectangle(List<Point> points)
+        public MinAreaRectangleModel GetMinAreaRectangle(List<Point> points)
         {
             Point[] sortedPoints = GetSortedPoints(points);
 
             if (points.Count < 3)
             {
-                return GetAreaLessThreePoints(sortedPoints);
+                return new MinAreaRectangleModel
+                {
+                    AllSortedPoints = sortedPoints,
+                    MinAreaRectangle = GetAreaLessThreePoints(sortedPoints)
+                };
             }
 
             double currentArea = 0.0;
             double minArea = 0.0;
 
             Dictionary<int, Point[]> wrongPoints = new Dictionary<int, Point[]>();
+            Dictionary<int, Point[]> allExtraPoints = new Dictionary<int, Point[]>();
+            Dictionary<int, Point[]> allNewSortedPoints = new Dictionary<int, Point[]>();
             Dictionary<int, Angle> allAngles = new Dictionary<int, Angle>();
             Dictionary<int, double> allArea = new Dictionary<int, double>();
 
@@ -45,6 +51,7 @@ namespace AlgorithmsProvider.Provider.Implementation
 
                     Angle angleBetweenTwoStraightLine = GetAngleBetweenTwoStraightLine(twoPoints);
                     Point[] newSortedPoints = GetAllNewCoordinatesPointsAfterTurningAxes(sortedPoints, angleBetweenTwoStraightLine);
+                    allNewSortedPoints.Add(currentNumber, newSortedPoints);
                     allAngles.Add(currentNumber, angleBetweenTwoStraightLine);
 
                     Point[] newTwoPoints = new Point[]
@@ -67,6 +74,7 @@ namespace AlgorithmsProvider.Provider.Implementation
                     }
 
                     Point[] extraPoints = GetExtraPoints(newSortedPoints);
+                    allExtraPoints.Add(currentNumber, extraPoints);
 
                     if (currentNumber == 1)
                     {
@@ -74,7 +82,7 @@ namespace AlgorithmsProvider.Provider.Implementation
                     }
 
                     currentArea = GetAreaRectangle(extraPoints);
-                    allArea.Add(currentNumber, currentArea);
+                    allArea.Add(currentNumber, currentArea);                    
 
                     if (currentArea < minArea)
                     {
@@ -83,7 +91,15 @@ namespace AlgorithmsProvider.Provider.Implementation
                 }
             }
 
-            return minArea;
+            return new MinAreaRectangleModel
+            {
+                AllSortedPoints = sortedPoints,
+                WrongPoints = wrongPoints,
+                AllExtraPoints = allExtraPoints,
+                AllAngles = allAngles,
+                AllArea = allArea,
+                MinAreaRectangle = minArea
+            };
         }
 
         private Point[] GetSortedPoints(List<Point> points)

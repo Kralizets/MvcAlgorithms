@@ -1,10 +1,14 @@
-﻿namespace AlgorithmsProvider.Models
+﻿using System.Collections.Generic;
+
+namespace AlgorithmsProvider.Models
 {
-    class MinAreaRectangleModel
+    public class MinAreaRectangleModel
     {
-        public Point[] AllPoints { get; set; }        
-        public Point[] RectanglePoints { get; set; }
-        public int ActionNumber { get; set; }
+        public Point[] AllSortedPoints { get; set; }
+        public Dictionary<int, Point[]> WrongPoints { get; set; }
+        public Dictionary<int, Point[]> AllExtraPoints { get; set; }
+        public Dictionary<int, Angle> AllAngles { get; set; }
+        public Dictionary<int, double> AllArea { get; set; }
         public double MinAreaRectangle { get; set; }
     }
 }

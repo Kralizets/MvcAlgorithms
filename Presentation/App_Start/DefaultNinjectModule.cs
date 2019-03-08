@@ -10,6 +10,7 @@ namespace Presentation
         public override void Load()
         {
             Bind<IHorspoolProvider>().To<HorspoolProvider>().InRequestScope();
+            Bind<IMinAreaRectangleProvider>().To<MinAreaRectangleProvider>().InRequestScope();
         }
     }
 }
