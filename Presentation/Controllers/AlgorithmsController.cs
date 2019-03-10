@@ -24,6 +24,11 @@ namespace Presentation.Controllers
             return View(GetHorspoolViewModel(_horspoolProvider.AlgorithmHorspul(inputString, searchString)));
         }
 
+        public ActionResult MinAreaRectangle()
+        {
+            return View();
+        }
+
         private HorspoolViewModel GetHorspoolViewModel(HorspoolModel horspoolModel)
         {
             return new HorspoolViewModel
