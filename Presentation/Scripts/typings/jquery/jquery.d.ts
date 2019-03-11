@@ -2670,7 +2670,7 @@ interface JQuery {
      * 
      * @param target A selector, element, HTML string, array of elements, or jQuery object; the matched set of elements will be inserted at the end of the element(s) specified by this parameter.
      */
-    appendTo(target: JQuery|any[]|Element|string): JQuery;
+    append(target: JQuery|any[]|Element|string): JQuery;
 
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
