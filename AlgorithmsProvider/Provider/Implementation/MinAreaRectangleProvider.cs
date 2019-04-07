@@ -8,21 +8,23 @@ namespace AlgorithmsProvider.Provider.Implementation
 {
     public class MinAreaRectangleProvider : IMinAreaRectangleProvider
     {
-        public MinAreaRectangleModel GetMinAreaRectangle(List<Point> points)
+        public MinAreaRectangleModel GetMinAreaRectangle(Point[] points)
         {
             Point[] sortedPoints = GetSortedPoints(points);
 
-            if (points.Count < 3)
+            if (points.Length < 3)
             {
                 return new MinAreaRectangleModel
                 {
                     AllSortedPoints = sortedPoints,
-                    MinAreaRectangle = GetAreaLessThreePoints(sortedPoints)
+                    MinAreaRectangle = GetAreaLessThreePoints(sortedPoints),
+                    IsSmallPoints = true
                 };
             }
 
             double currentArea = 0.0;
             double minArea = 0.0;
+            int numberMinAreaRectangle = 1;
 
             Dictionary<int, Point[]> wrongPoints = new Dictionary<int, Point[]>();
             Dictionary<int, Point[]> allExtraPoints = new Dictionary<int, Point[]>();
@@ -87,6 +89,7 @@ namespace AlgorithmsProvider.Provider.Implementation
                     if (currentArea < minArea)
                     {
                         minArea = currentArea;
+                        numberMinAreaRectangle = currentNumber;
                     }
                 }
             }
@@ -98,11 +101,13 @@ namespace AlgorithmsProvider.Provider.Implementation
                 AllExtraPoints = allExtraPoints,
                 AllAngles = allAngles,
                 AllArea = allArea,
-                MinAreaRectangle = minArea
+                MinAreaRectangle = minArea,
+                NumberMinAreaRectangle = numberMinAreaRectangle,
+                IsSmallPoints = false
             };
         }
 
-        private Point[] GetSortedPoints(List<Point> points)
+        private Point[] GetSortedPoints(Point[] points)
         {
             return points.OrderByDescending(point => point.Y).ToArray();
         }

@@ -1,7 +1,7 @@
 var Point = /** @class */ (function () {
     function Point(pointX, pointY) {
-        this.x = pointX;
-        this.y = pointY;
+        this.X = pointX;
+        this.Y = pointY;
     }
     return Point;
 }());

@@ -231,6 +231,7 @@
     <Content Include="Views\Algorithms\_MinAreaRectangleAddPoint.cshtml" />
     <Content Include="Views\Algorithms\_MinAreaRectangleIsSuccessfullyAddPoint.cshtml" />
     <Content Include="Views\Algorithms\_MinAreaRectangleShowAllPoints.cshtml" />
+    <Content Include="Views\Algorithms\_MinAreaRectangleResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

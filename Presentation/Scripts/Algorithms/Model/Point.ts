@@ -1,9 +1,9 @@
 ﻿class Point {
-    public x: string;
-    public y: string;
+    public X: number;
+    public Y: number;
 
-    constructor(pointX: string, pointY: string) {
-        this.x = pointX;
-        this.y = pointY;
+    constructor(pointX: number, pointY: number) {
+        this.X = pointX;
+        this.Y = pointY;
     }
 }

@@ -8,10 +8,12 @@ namespace Presentation.Controllers
     public class AlgorithmsController : Controller
     {
         private readonly IHorspoolProvider _horspoolProvider;
+        private readonly IMinAreaRectangleProvider _minAreaRectangleProvider;
 
-        public AlgorithmsController(IHorspoolProvider horspoolProvider)
+        public AlgorithmsController(IHorspoolProvider horspoolProvider, IMinAreaRectangleProvider minAreaRectangleProvider)
         {
             _horspoolProvider = horspoolProvider;
+            _minAreaRectangleProvider = minAreaRectangleProvider;
         }
 
         public ActionResult Horspool()
@@ -29,6 +31,18 @@ namespace Presentation.Controllers
             return View();
         }
 
+        [HttpPost]
+        public double MinAreaRectangleResult(Point[] points)
+        {
+            if (points == null)
+            {
+                return 0;
+            }
+
+            return _minAreaRectangleProvider.GetMinAreaRectangle(points).MinAreaRectangle;
+        }
+
+        //need add automap
         private HorspoolViewModel GetHorspoolViewModel(HorspoolModel horspoolModel)
         {
             return new HorspoolViewModel

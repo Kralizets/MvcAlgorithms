@@ -7,6 +7,7 @@
         var modalInputPoint = $('#minAreaRectangle_modalAddPoint');
         var modalIsSuccessfullAddPoint = $('#minAreaRectangle_modalIsSuccessfullyAddPoint');
         var modalShowAllPoints = $("#minAreaRectangle_modalShowAllPoints");
+        var modalModalResult = $("#minAreaRectangle_modalResult");
 
         $('#minAreaRectangle_addPoint').on('click', function() {
             modalInputPoint.show();
@@ -26,6 +27,12 @@
             modalInputPoint.hide();
             modalIsSuccessfullAddPoint.hide();
             modalShowAllPoints.hide();
+            modalModalResult.hide();
+        });
+
+        $("#minAreaRectangle_getResult").on('click', function () {
+            self.GetResult();
+            modalModalResult.show();
         });
     }
 
@@ -43,7 +50,7 @@
         getPointY.val("");
 
         if (pointX != "" && pointY != "" && regex.test(pointX) && regex.test(pointY)) {
-            var point = new Point(pointX, pointY);
+            var point = new Point(parseFloat(pointX), parseFloat(pointY));
             self.points.push(point);
 
             isSuccessfully.text("The point with coordinates (" + pointX + ", " + pointY + ") successfully added to the list!");
@@ -68,11 +75,26 @@
         var listShowAllPoints = '<div class=\"internal-show-all-points-body\">\r\n<ol class=\"rounded\">\r\n';
 
         self.points.forEach(function(point) {
-            listShowAllPoints = listShowAllPoints + '<li><a>Point: [x = ' + point.x + '; y = ' + point.y + ']</a></li>\r\n';
+            listShowAllPoints = listShowAllPoints + '<li><a>Point: [x = ' + point.X + '; y = ' + point.Y + ']</a></li>\r\n';
         });
 
         listShowAllPoints = listShowAllPoints + '</ol>\r\n</div>';
         showAllPointsBody.append(listShowAllPoints);
+        return;
+    }
+
+    private static GetResult() {
+        var self = this;
+        $.ajax({
+            type: "POST",
+            url: "/Algorithms/MinAreaRectangleResult",
+            data: JSON.stringify(self.points),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                $('#minAreaRectangleResult').text(result);
+            }
+        });
         return;
     }
 }

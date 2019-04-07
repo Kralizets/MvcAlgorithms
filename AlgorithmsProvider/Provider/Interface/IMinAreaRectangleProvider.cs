@@ -5,6 +5,6 @@ namespace AlgorithmsProvider.Provider.Interface
 {
     public interface IMinAreaRectangleProvider
     {
-        MinAreaRectangleModel GetMinAreaRectangle(List<Point> points);
+        MinAreaRectangleModel GetMinAreaRectangle(Point[] points);
     }
 }
