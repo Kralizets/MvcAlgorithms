@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace Presentation
 {
@@ -20,17 +19,24 @@ namespace Presentation
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                        "~/Scripts/bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/algorithmsMinAreaRectangle").Include(
-                      "~/Scripts/Algorithms/MinAreaRectangle/MinAreaRectangleMain.js",
-                      "~/Scripts/Algorithms/MinAreaRectangle/Controller/MinAreaRectangleController.js",
-                      "~/Scripts/Algorithms/Model/Point.js"));
+                        "~/Scripts/Algorithms/MinAreaRectangle/MinAreaRectangleMain.js",
+                        "~/Scripts/Algorithms/MinAreaRectangle/Controller/MinAreaRectangleController.js",
+                        "~/Scripts/Algorithms/Model/Point.js",
+                        "~/Scripts/Algorithms/PointsController/PointsController.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/pointsWithoutIntersections").Include(
+                        "~/Scripts/Algorithms/PointsWithoutIntersections/PointsWithoutIntersections.js",
+                        "~/Scripts/Algorithms/PointsWithoutIntersections/Controller/PointsWithoutIntersectionsController.js",
+                        "~/Scripts/Algorithms/Model/Point.js",
+                        "~/Scripts/Algorithms/PointsController/PointsController.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/style.css"));
+                        "~/Content/bootstrap.css",
+                        "~/Content/site.css",
+                        "~/Content/style.css"));
         }
     }
 }

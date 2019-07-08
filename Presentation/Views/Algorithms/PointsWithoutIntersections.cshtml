@@ -1,0 +1,17 @@
+﻿@Scripts.Render("~/bundles/pointsWithoutIntersections")
+
+@{
+    ViewBag.Title = "Lines by points without intersections";
+}
+
+@*Need rework design*@
+
+<div>
+    <h1>Description of lines by points without intersections!</h1>
+    @Html.Partial("_PointsWithoutIntersectionsInput")
+    @Html.Partial("_AddPoint")
+    @Html.Partial("_ShowAllPoints")
+    @Html.Partial("_PointsWithoutIntersectionsResultFromFiles")
+    @Html.Partial("_PointsWithoutIntersectionsResultFromPoints")
+    @Html.Partial("_PointsWithoutIntersectionsResultNotFound")
+</div>

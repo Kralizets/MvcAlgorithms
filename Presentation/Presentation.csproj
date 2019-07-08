@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
@@ -54,8 +57,8 @@
     <Reference Include="Ninject.Web.Common, Version=3.3.1.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.Web.Common.3.3.1\lib\net45\Ninject.Web.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Web.Common.WebHost, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.Web.Common.WebHost.3.3.0\lib\net45\Ninject.Web.Common.WebHost.dll</HintPath>
+    <Reference Include="Ninject.Web.Common.WebHost, Version=3.3.1.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.WebHost.3.3.1\lib\net45\Ninject.Web.Common.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="Ninject.Web.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.MVC5.3.3.0\lib\net45\Ninject.Web.Mvc.dll</HintPath>
@@ -116,6 +119,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -170,9 +176,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\DefaultNinjectModule.cs" />
+    <Compile Include="App_Start\Ninject.Web.Common.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AlgorithmsController.cs" />
@@ -184,6 +192,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Input.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -228,13 +237,17 @@
     <Content Include="Views\Algorithms\_HorspoolResult.cshtml" />
     <Content Include="Views\Algorithms\MinAreaRectangle.cshtml" />
     <Content Include="Views\Algorithms\_MinAreaRectangleInput.cshtml" />
-    <Content Include="Views\Algorithms\_MinAreaRectangleAddPoint.cshtml" />
-    <Content Include="Views\Algorithms\_MinAreaRectangleIsSuccessfullyAddPoint.cshtml" />
-    <Content Include="Views\Algorithms\_MinAreaRectangleShowAllPoints.cshtml" />
+    <Content Include="Views\Algorithms\_AddPoint.cshtml" />
+    <Content Include="Views\Algorithms\_IsSuccessfullyAddPoint.cshtml" />
+    <Content Include="Views\Algorithms\_ShowAllPoints.cshtml" />
     <Content Include="Views\Algorithms\_MinAreaRectangleResult.cshtml" />
+    <Content Include="Views\Algorithms\PointsWithoutIntersections.cshtml" />
+    <Content Include="Views\Algorithms\_PointsWithoutIntersectionsInput.cshtml" />
+    <Content Include="Views\Algorithms\_PointsWithoutIntersectionsResultFromFiles.cshtml" />
+    <Content Include="Views\Algorithms\_PointsWithoutIntersectionsResultNotFound.cshtml" />
+    <Content Include="Views\Algorithms\_PointsWithoutIntersectionsResultFromPoints.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Files\" />
   </ItemGroup>
   <ItemGroup>
@@ -255,11 +268,18 @@
       <Project>{8f6d9c0d-f57c-4c86-8539-f06c8d9f37f9}</Project>
       <Name>AlgorithmsProvider</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AlgorithmsRepository\AlgorithmsRepository.csproj">
+      <Project>{430D6943-63A7-4683-AE4C-D056235D4589}</Project>
+      <Name>AlgorithmsRepository</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\Algorithms\MinAreaRectangle\Controller\MinAreaRectangleController.ts" />
     <TypeScriptCompile Include="Scripts\Algorithms\MinAreaRectangle\MinAreaRectangleMain.ts" />
     <TypeScriptCompile Include="Scripts\Algorithms\Model\Point.ts" />
+    <TypeScriptCompile Include="Scripts\Algorithms\PointsController\PointsController.ts" />
+    <TypeScriptCompile Include="Scripts\Algorithms\PointsWithoutIntersections\Controller\PointsWithoutIntersectionsController.ts" />
+    <TypeScriptCompile Include="Scripts\Algorithms\PointsWithoutIntersections\PointsWithoutIntersections.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
   <ItemGroup>

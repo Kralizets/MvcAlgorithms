@@ -1,5 +1,4 @@
 ﻿using AlgorithmsProvider.Models;
-using System.Collections.Generic;
 
 namespace AlgorithmsProvider.Provider.Interface
 {

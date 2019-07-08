@@ -1,4 +1,4 @@
 ﻿$(function () {
     PointsController.Init();
-    MinAreaRectangleController.Init();
+    PointsWithoutIntersectionsController.Init();
 })

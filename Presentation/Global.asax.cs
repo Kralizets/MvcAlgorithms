@@ -1,6 +1,9 @@
-﻿using Ninject;
+﻿using AlgorithmsRepository.Models;
+using AutoMapper;
+using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Mvc;
+using System.Drawing;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -21,6 +24,8 @@ namespace Presentation
 
             var kernel = new StandardKernel(new DefaultNinjectModule());
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+
+            App_Start.AutoMapperConfig.Initialize();
         }
     }
 }
