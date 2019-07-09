@@ -238,8 +238,8 @@
     <Content Include="Views\Algorithms\MinAreaRectangle.cshtml" />
     <Content Include="Views\Algorithms\_MinAreaRectangleInput.cshtml" />
     <Content Include="Views\Algorithms\_AddPoint.cshtml" />
-    <Content Include="Views\Algorithms\_IsSuccessfullyAddPoint.cshtml" />
     <Content Include="Views\Algorithms\_ShowAllPoints.cshtml" />
+    <Content Include="Views\Algorithms\_IsSuccessfullyAddPoint.cshtml" />
     <Content Include="Views\Algorithms\_MinAreaRectangleResult.cshtml" />
     <Content Include="Views\Algorithms\PointsWithoutIntersections.cshtml" />
     <Content Include="Views\Algorithms\_PointsWithoutIntersectionsInput.cshtml" />

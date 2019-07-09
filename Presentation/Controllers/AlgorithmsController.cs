@@ -76,7 +76,7 @@ namespace Presentation.Controllers
                 return _pointsWithoutIntersectionsProvider.GetOrderPointsWithoutIntersections(points);
             }
 
-            return points;
+            return new Point[0];
         }
     }
 }

@@ -48,7 +48,8 @@ var PointsWithoutIntersectionsController = /** @class */ (function () {
             modalNotFound.show();
             return;
         }
-        this.DrawLineByPointsWithoutIntersections(points);
+        var self = this;
+        self.ShowModalResultFromFiles(points);
         modalResult.show();
         return;
     };
@@ -57,53 +58,33 @@ var PointsWithoutIntersectionsController = /** @class */ (function () {
             modalNotFound.show();
             return;
         }
+        var self = this;
+        self.ShowModalResultFromPoints(points);
         modalResult.show();
-        this.DrawLineByPointsWithoutIntersections(points);
         return;
     };
-    PointsWithoutIntersectionsController.DrawLineByPointsWithoutIntersections = function (points) {
-        var addCanvas = $('.pointsWithoutIntersections_addCanvas');
-        if (points.length == 1) {
-            addCanvas.append('<div class=\"algorithms-min-area-rectangle-text-result\">' +
-                '<span class=\"algorithms-horspool-text-result\">One points [' +
-                points[0].X + '; ' + points[0].Y + ']</span></div>');
-            return;
-        }
-        var canvas_html = document.createElement('canvas');
-        canvas_html.id = "onePointsInCanvas";
-        canvas_html.width = Math.ceil(this.GetWidthForCanvas(points));
-        canvas_html.height = Math.ceil(this.GetHeightForCanvas(points));
-        addCanvas.append(canvas_html);
-        var canvas = canvas_html.getContext('2d');
-        //canvas.beginPath();
-        canvas.lineWidth = 5;
-        canvas.strokeStyle = "red";
-        for (var i = 0; i < (points.length - 1); i++) {
-            canvas.moveTo(points[i].X, points[i].Y);
-            canvas.lineTo(points[i + 1].X, points[i + 1].Y);
-        }
-        //canvas.stroke();
+    //need refactoring
+    PointsWithoutIntersectionsController.ShowModalResultFromFiles = function (points) {
+        var showAllPointsBody = $('#showAllPointsBodyWithoutIntersectionsFromFiles');
+        $(".internal-show-all-points-body").remove();
+        var listShowAllPoints = '<div class=\"internal-show-all-points-body\">\r\n<ol class=\"rounded\">\r\n';
+        points.forEach(function (point) {
+            listShowAllPoints = listShowAllPoints + '<li><a>Point: [x = ' + point.X + '; y = ' + point.Y + ']</a></li>\r\n';
+        });
+        listShowAllPoints = listShowAllPoints + '</ol>\r\n</div>';
+        showAllPointsBody.append(listShowAllPoints);
         return;
     };
-    PointsWithoutIntersectionsController.GetWidthForCanvas = function (points) {
-        var maxW = points[0].X;
-        var deltaW = 100;
+    PointsWithoutIntersectionsController.ShowModalResultFromPoints = function (points) {
+        var showAllPointsBody = $('#showAllPointsBodyWithoutIntersectionsFromPoints');
+        $(".internal-show-all-points-body").remove();
+        var listShowAllPoints = '<div class=\"internal-show-all-points-body\">\r\n<ol class=\"rounded\">\r\n';
         points.forEach(function (point) {
-            if (point.X > maxW) {
-                maxW = point.X;
-            }
+            listShowAllPoints = listShowAllPoints + '<li><a>Point: [x = ' + point.X + '; y = ' + point.Y + ']</a></li>\r\n';
         });
-        return maxW + deltaW;
-    };
-    PointsWithoutIntersectionsController.GetHeightForCanvas = function (points) {
-        var maxH = points[0].Y;
-        var deltaH = 100;
-        points.forEach(function (point) {
-            if (point.Y > maxH) {
-                maxH = point.Y;
-            }
-        });
-        return maxH + deltaH;
+        listShowAllPoints = listShowAllPoints + '</ol>\r\n</div>';
+        showAllPointsBody.append(listShowAllPoints);
+        return;
     };
     return PointsWithoutIntersectionsController;
 }());
